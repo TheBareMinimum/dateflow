@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2113.65">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.7px Arial; -webkit-text-stroke: #000000}
+    span.s1 {font-kerning: none}
+    span.s2 {font: 14.7px 'PingFang SC'; font-kerning: none}
+    span.s3 {font: 14.7px Helvetica; font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="en"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;title&gt;Date Flow&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1">1.9.4/dist/leaflet.css"/&gt;</span></p>
+<p class="p1"><span class="s1">Garamond:ital,wght@0,400;0,500;1,400&amp;family=Inter:wght@300;400;500&amp;display=swap" rel="stylesheet"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;style&gt;</span></p>
+<p class="p1"><span class="s1">:root{--cream:#FBF7F2;--ivory:#F5EFE7;--rose:#D4A5A5;--mauve:#B08A8A;--champagne:#D9C5A0;--sage:#B8C5B0;--ink:#3A302B;--muted:#8A7D75;--line:rgba(58,48,43,0.12);}</span></p>
+<p class="p1"><span class="s1">*{margin:0;padding:0;box-sizing:border-box;}</span></p>
+<p class="p1"><span class="s1">body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;font-weight:300;min-height:100vh;line-height:1.6;background-image:radial-gradient(circle at 15% 10%,rgba(244,217,208,0.55),transparent 45%),radial-gradient(circle at 85% 90%,rgba(217,197,160,0.35),transparent 50%);background-attachment:fixed;}</span></p>
+<p class="p1"><span class="s1">.container{max-width:1000px;margin:0 auto;padding:60px 32px 80px;}</span></p>
+<p class="p1"><span class="s1">.header{text-align:center;margin-bottom:60px;}</span></p>
+<p class="p1"><span class="s1">.kicker{font-size:0.75rem;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--mauve);margin-bottom:16px;}</span></p>
+<p class="p1"><span class="s1">.header h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:4.5rem;line-height:1;letter-spacing:-1px;}</span></p>
+<p class="p1"><span class="s1">.header h1 em{font-style:italic;font-weight:400;color:var(--rose);}</span></p>
+<p class="p1"><span class="s1">.header p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.25rem;color:var(--muted);margin-top:12px;}</span></p>
+<p class="p1"><span class="s1">.divider{width:60px;height:1px;background:var(--rose);margin:24px auto 0;opacity:0.6;}</span></p>
+<p class="p1"><span class="s1">.form{background:rgba(255,255,255,0.6);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:4px;padding:40px;box-shadow:0 20px 60px -20px rgba(58,48,43,0.15);margin-bottom:40px;}</span></p>
+<p class="p1"><span class="s1">.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;margin-bottom:32px;}</span></p>
+<p class="p1"><span class="s1">.field label{display:block;font-size:0.7rem;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}</span></p>
+<p class="p1"><span class="s1">.field select,.field input{width:100%;padding:12px 0;background:transparent;border:none;border-bottom:1px solid var(--line);color:var(--ink);font-family:'Cormorant Garamond',serif;font-size:1.25rem;appearance:none;cursor:pointer;}</span></p>
+<p class="p1"><span class="s1">.field select{background-image:url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23B08A8A' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center;padding-right:24px;}</span></p>
+<p class="p1"><span class="s1">.field select:focus,.field input:focus{outline:none;border-color:var(--rose);}</span></p>
+<p class="p1"><span class="s1">.btn{display:block;width:100%;padding:18px;background:var(--ink);border:none;border-radius:2px;color:var(--cream);font-size:0.75rem;font-weight:500;letter-spacing:4px;text-transform:uppercase;cursor:pointer;transition:all 0.4s ease;}</span></p>
+<p class="p1"><span class="s1">.btn:hover{background:var(--rose);color:var(--ink);letter-spacing:5px;}</span></p>
+<p class="p1"><span class="s1">.btn:disabled{opacity:0.5;cursor:not-allowed;}</span></p>
+<p class="p1"><span class="s1">#map{height:480px;border-radius:4px;margin-bottom:48px;display:none;box-shadow:0 20px 60px -20px rgba(58,48,43,0.15);border:1px solid var(--line);}</span></p>
+<p class="p1"><span class="s1">.results{display:none;}</span></p>
+<p class="p1"><span class="s1">.results-header{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:2rem;text-align:center;margin-bottom:8px;font-weight:500;}</span></p>
+<p class="p1"><span class="s1">.results-sub{text-align:center;color:var(--muted);font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:40px;}</span></p>
+<p class="p1"><span class="s1">.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}</span></p>
+<p class="p1"><span class="s1">.card{background:white;border:1px solid var(--line);border-radius:4px;padding:32px 28px;transition:all 0.5s cubic-bezier(0.22,1,0.36,1);opacity:0;transform:translateY(20px);animation:cardIn 0.8s forwards;}</span></p>
+<p class="p1"><span class="s1">.card:nth-child(2){animation-delay:0.15s;} .card:nth-child(3){animation-delay:0.3s;}</span></p>
+<p class="p1"><span class="s1">@keyframes cardIn{to{opacity:1;transform:translateY(0);}}</span></p>
+<p class="p1"><span class="s1">.card:hover{transform:translateY(-6px);box-shadow:0 30px 60px -20px rgba(58,48,43,0.18);}</span></p>
+<p class="p1"><span class="s1">.card-number{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.85rem;color:var(--rose);letter-spacing:2px;margin-bottom:4px;}</span></p>
+<p class="p1"><span class="s1">.card h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.7rem;line-height:1.15;margin-bottom:14px;}</span></p>
+<p class="p1"><span class="s1">.meta{color:var(--muted);font-size:0.85rem;line-height:1.5;margin-bottom:6px;}</span></p>
+<p class="p1"><span class="s1">.tags{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 22px;}</span></p>
+<p class="p1"><span class="s1">.tag{font-size:0.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);padding:4px 10px;background:var(--ivory);border-radius:100px;}</span></p>
+<p class="p1"><span class="s1">.rating{font-family:'Cormorant Garamond',serif;font-size:1.1rem;margin-bottom:20px;}</span></p>
+<p class="p1"><span class="s1">.maps-link{display:inline-block;padding:10px 0;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;font-weight:500;transition:all 0.3s ease;}</span></p>
+<p class="p1"><span class="s1">.maps-link:hover{color:var(--rose);border-color:var(--rose);letter-spacing:4px;}</span></p>
+<p class="p1"><span class="s1">.loader{text-align:center;display:none;padding:60px 0;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--muted);font-size:1.2rem;}</span></p>
+<p class="p1"><span class="s1">.error{background:white;border:1px solid var(--rose);border-left:3px solid var(--rose);padding:20px 24px;border-radius:2px;display:none;font-family:'Cormorant Garamond',serif;font-size:1.1rem;margin-bottom:20px;}</span></p>
+<p class="p1"><span class="s1">.error small{display:block;font-family:'Inter',sans-serif;font-size:0.75rem;color:var(--muted);margin-top:8px;}</span></p>
+<p class="p1"><span class="s1">.leaflet-popup-content-wrapper{background:white;border-radius:2px;box-shadow:0 10px 30px rgba(58,48,43,0.15);}</span></p>
+<p class="p1"><span class="s1">.leaflet-popup-content b{color:var(--ink);font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;display:block;margin-bottom:4px;}</span></p>
+<p class="p1"><span class="s1">&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="container"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="header"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="kicker"&gt;A quiet little planner · V2.0&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;h1&gt;Date &lt;em&gt;Flow&lt;/em&gt;&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1">&lt;p&gt;Discover cafés worth lingering in.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="divider"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="form"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="form-grid"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="field"&gt;&lt;label&gt;Neighbourhood&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1">&lt;select id="area"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;option value="19.0596,72.8295"&gt;Bandra West&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1">&lt;option value="18.9220,72.8347"&gt;South Bombay&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1">&lt;option value="18.9932,72.8305"&gt;Lower Parel&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1">&lt;option value="19.1360,72.8296"&gt;Andheri West&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1">&lt;option value="19.1176,72.9060"&gt;Powai&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/select&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="field"&gt;&lt;label&gt;Budget&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1">&lt;select id="budget"&gt;&lt;option value="1"&gt;Everyday&lt;/option&gt;&lt;option value="2" selected&gt;Considered&lt;/option&gt;&lt;option value="3"&gt;Elevated&lt;/option&gt;&lt;option value="4"&gt;Indulgent&lt;/option&gt;&lt;/select&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="field"&gt;&lt;label&gt;Mood&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1">&lt;select id="vibe"&gt;&lt;option value="coffee"&gt;Slow coffee&lt;/option&gt;&lt;option value="cafe"&gt;Café&lt;/option&gt;&lt;option value="bakery"&gt;Bakery&lt;/option&gt;&lt;option value="brunch"&gt;Brunch&lt;/option&gt;&lt;/select&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="field"&gt;&lt;label&gt;Radius (km)&lt;/label&gt;&lt;input type="number" id="radius" value="3" min="1" max="10"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;button class="btn" id="findBtn"&gt;Find cafés&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="loader" id="loader"&gt;curating...&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="error" id="error"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div id="map"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="results" id="results"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="results-header"&gt;Handpicked for you&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="results-sub"&gt;Three cafés · in order of grace&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div class="cards" id="cards"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">https://unpkg.com/leaflet@1.9.4/dist/leaflet.js</span></p>
+<p class="p1"><span class="s1">&lt;script&gt;</span></p>
+<p class="p1"><span class="s1">let map;</span></p>
+<p class="p1"><span class="s1">document.getElementById('findBtn').addEventListener('click', findCafes);</span></p>
+<p class="p1"><span class="s1">async function findCafes() {</span></p>
+<p class="p1"><span class="s1">const area = document.getElementById('area').value;</span></p>
+<p class="p1"><span class="s1">const budget = document.getElementById('budget').value;</span></p>
+<p class="p1"><span class="s1">const vibe = document.getElementById('vibe').value;</span></p>
+<p class="p1"><span class="s1">const radiusKm = document.getElementById('radius').value;</span></p>
+<p class="p1"><span class="s1">const [lat, lng] = area.split(',');</span></p>
+<p class="p1"><span class="s1">document.getElementById('loader').style.display = 'block';</span></p>
+<p class="p1"><span class="s1">document.getElementById('results').style.display = 'none';</span></p>
+<p class="p1"><span class="s1">document.getElementById('map').style.display = 'none';</span></p>
+<p class="p1"><span class="s1">document.getElementById('error').style.display = 'none';</span></p>
+<p class="p1"><span class="s1">document.getElementById('findBtn').disabled = true;</span></p>
+<p class="p1"><span class="s1">try {</span></p>
+<p class="p1"><span class="s1">const params = new URLSearchParams({query:vibe,ll:lat+','+lng,radius:Math.round(radiusKm*1000),max_price:budget,min_price:1,limit:15,sort:'RATING'});</span></p>
+<p class="p1"><span class="s1">const res = await fetch('/.netlify/functions/cafes?' + params.toString());</span></p>
+<p class="p1"><span class="s1">if (!res.ok) throw new Error('Function returned ' + res.status + '. ' + (await res.text()).slice(0,200));</span></p>
+<p class="p1"><span class="s1">const data = await res.json();</span></p>
+<p class="p1"><span class="s1">if (!data.results || !data.results.length) throw new Error("No cafés found. Try wider radius or different mood.");</span></p>
+<p class="p1"><span class="s1">const normalized = data.results.map(p=&gt;({name:p.name,rating:p.rating,price:p.price,categories:p.categories||[],location:p.location||{},lat:p.latitude||(p.geocodes&amp;&amp;p.geocodes.main&amp;&amp;p.geocodes.main.latitude),lng:p.longitude||(p.geocodes&amp;&amp;p.geocodes.main&amp;&amp;p.geocodes.main.longitude)})).filter(p=&gt;p.lat&amp;&amp;p.lng);</span></p>
+<p class="p1"><span class="s1">const top3 = normalized.sort((a,b)=&gt;(b.rating||0)-(a.rating||0)).slice(0,3);</span></p>
+<p class="p1"><span class="s1">if (!top3.length) throw new Error("Could not map results.");</span></p>
+<p class="p1"><span class="s1">renderMap(lat, lng, top3);</span></p>
+<p class="p1"><span class="s1">renderCards(top3);</span></p>
+<p class="p1"><span class="s1">} catch (err) {</span></p>
+<p class="p1"><span class="s1">document.getElementById('error').innerHTML = err.message + '&lt;small&gt;V2.0 · If you see 404, the Netlify Function did not deploy. Use GitHub route.&lt;/small&gt;';</span></p>
+<p class="p1"><span class="s1">document.getElementById('error').style.display = 'block';</span></p>
+<p class="p1"><span class="s1">} finally {</span></p>
+<p class="p1"><span class="s1">document.getElementById('loader').style.display = 'none';</span></p>
+<p class="p1"><span class="s1">document.getElementById('findBtn').disabled = false;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">function renderMap(lat,lng,cafes){document.getElementById('map').style.display='block';if(map)map.remove();map=L.map('map',{scrollWheelZoom:false}).setView([lat,lng],14);L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© OSM © CARTO',maxZoom:19}).addTo(map);const colors=['#D4A5A5','#D9C5A0','#B8C5B0'];const bounds=[];cafes.forEach((c,i)=&gt;{const pos=[c.lat,c.lng];bounds.push(pos);const icon=L.divIcon({html:'&lt;div style="background:'+colors[i]+';color:#3A302B;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:500;font-family:Cormorant Garamond,serif;box-shadow:0 4px 14px rgba(58,48,43,0.25);border:2px solid white;"&gt;'+(i+1)+'&lt;/div&gt;',className:'',iconSize:[32,32],iconAnchor:[16,16]});L.marker(pos,{icon}).addTo(map).bindPopup('&lt;b&gt;'+c.name+'&lt;/b&gt;'+(c.location.formatted_address||'')+'&lt;br&gt;'+(c.rating?'</span><span class="s2">★</span><span class="s1"> '+c.rating+'/10':''));});if(bounds.length&gt;1)map.fitBounds(bounds,{padding:[60,60]});setTimeout(()=&gt;map.invalidateSize(),100);}</span></p>
+<p class="p1"><span class="s1">function renderCards(cafes){const container=document.getElementById('cards');container.innerHTML='';['One','Two','Three'].forEach((label,i)=&gt;{const c=cafes[i];if(!c)return;const mapsUrl='https://www.google.com/maps/search/?api=1&amp;query='+encodeURIComponent(c.name+' '+(c.location.locality||'Mumbai'));const cats=(c.categories||[]).slice(0,2).map(x=&gt;'&lt;span class="tag"&gt;'+x.name+'&lt;/span&gt;').join('');const card=document.createElement('div');card.className='card';card.innerHTML='&lt;div class="card-number"&gt;'+label+'&lt;/div&gt;&lt;h3&gt;'+c.name+'&lt;/h3&gt;&lt;div class="meta"&gt;'+(c.location.formatted_address||'')+'&lt;/div&gt;'+(c.price?'&lt;div class="meta"&gt;'+'</span><span class="s3">₹</span><span class="s1">'.repeat(c.price)+'&lt;/div&gt;':'')+'&lt;div class="tags"&gt;'+cats+'&lt;/div&gt;'+(c.rating?'&lt;div class="rating"&gt;</span><span class="s2">★</span><span class="s1"> '+c.rating+' / 10&lt;/div&gt;':'')+'&lt;a href="'+mapsUrl+'" target="_blank" class="maps-link"&gt;Open in maps →&lt;/a&gt;';container.appendChild(card);});document.getElementById('results').style.display='block';}</span></p>
+<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
