@@ -1,20 +1,937 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
 
-<title>Test</title>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Date Planner</title>
+
+<style>
+
+:root {
+
+--cream: #FBF7F2;
+
+--ivory: #F5EFE7;
+
+--rose: #D4A5A5;
+
+--mauve: #B08A8A;
+
+--champagne: #D9C5A0;
+
+--sage: #B8C5B0;
+
+--ink: #3A302B;
+
+--muted: #8A7D75;
+
+--line: rgba(58,48,43,0.12);
+
+--serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+
+--sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { background: var(--cream); }
+
+body {
+
+color: var(--ink);
+
+font-family: var(--sans);
+
+font-weight: 300;
+
+min-height: 100vh;
+
+line-height: 1.6;
+
+background-image:
+
+radial-gradient(circle at 15% 10%, rgba(244,217,208,0.55), transparent 45%),
+
+radial-gradient(circle at 85% 90%, rgba(217,197,160,0.35), transparent 50%),
+
+radial-gradient(circle at 50% 50%, rgba(184,197,176,0.15), transparent 60%);
+
+background-attachment: fixed;
+
+}
+
+.container { max-width: 1000px; margin: 0 auto; padding: 60px 32px 80px; }
+
+.header { text-align: center; margin-bottom: 54px; }
+
+.kicker {
+
+font-family: var(--sans);
+
+font-size: 0.72rem; font-weight: 500;
+
+letter-spacing: 4px; text-transform: uppercase;
+
+color: var(--mauve); margin-bottom: 16px;
+
+}
+
+h1 {
+
+font-family: var(--serif);
+
+font-weight: 500; font-size: 4.5rem;
+
+line-height: 1; letter-spacing: -1.5px;
+
+}
+
+h1 em { font-style: italic; font-weight: 400; color: var(--rose); }
+
+.tag-line {
+
+font-family: var(--serif);
+
+font-style: italic; font-size: 1.25rem;
+
+color: var(--muted); margin-top: 12px;
+
+}
+
+.divider {
+
+width: 60px; height: 1px; background: var(--rose);
+
+margin: 24px auto 0; opacity: 0.6;
+
+}
+
+.form {
+
+background: rgba(255,255,255,0.63);
+
+backdrop-filter: blur(12px);
+
+border: 1px solid var(--line);
+
+border-radius: 6px;
+
+padding: 40px;
+
+box-shadow: 0 20px 60px -24px rgba(58,48,43,0.18);
+
+margin-bottom: 38px;
+
+}
+
+.form-grid {
+
+display: grid;
+
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+gap: 28px; margin-bottom: 32px;
+
+}
+
+.field label {
+
+display: block;
+
+font-family: var(--sans);
+
+font-size: 0.68rem; font-weight: 500;
+
+letter-spacing: 2.5px; text-transform: uppercase;
+
+color: var(--muted); margin-bottom: 10px;
+
+}
+
+.field select, .field input {
+
+width: 100%; padding: 12px 0;
+
+background: transparent; border: none;
+
+border-bottom: 1px solid var(--line);
+
+color: var(--ink);
+
+font-family: var(--serif);
+
+font-size: 1.25rem;
+
+appearance: none; cursor: pointer;
+
+}
+
+.field select:focus, .field input:focus {
+
+outline: none; border-color: var(--rose);
+
+}
+
+.btn {
+
+display: block; width: 100%; padding: 18px;
+
+background: var(--ink); border: none; border-radius: 3px;
+
+color: var(--cream);
+
+font-family: var(--sans);
+
+font-size: 0.75rem; font-weight: 500;
+
+letter-spacing: 4px; text-transform: uppercase;
+
+cursor: pointer; transition: all 0.35s;
+
+}
+
+.btn:hover {
+
+background: var(--rose); color: var(--ink);
+
+letter-spacing: 5px;
+
+}
+
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.loader {
+
+text-align: center; display: none; padding: 48px 0;
+
+font-family: var(--serif);
+
+font-style: italic; font-size: 1.2rem;
+
+color: var(--muted);
+
+}
+
+.error {
+
+display: none;
+
+background: white;
+
+border: 1px solid var(--rose);
+
+border-left: 3px solid var(--rose);
+
+padding: 18px 22px; border-radius: 3px;
+
+font-family: var(--serif);
+
+font-size: 1.1rem; margin-bottom: 24px;
+
+}
+
+#map {
+
+height: 460px; border-radius: 6px;
+
+margin-bottom: 44px; display: none;
+
+box-shadow: 0 20px 60px -24px rgba(58,48,43,0.18);
+
+border: 1px solid var(--line);
+
+background: #eee;
+
+}
+
+.results { display: none; }
+
+.results-header {
+
+font-family: var(--serif);
+
+font-style: italic; font-size: 2rem;
+
+text-align: center; margin-bottom: 8px; font-weight: 500;
+
+}
+
+.results-sub {
+
+text-align: center; color: var(--muted);
+
+font-size: 0.72rem; letter-spacing: 3px;
+
+text-transform: uppercase; margin-bottom: 36px;
+
+}
+
+.cards {
+
+display: grid;
+
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+gap: 24px;
+
+}
+
+.card {
+
+background: white;
+
+border: 1px solid var(--line);
+
+border-radius: 6px;
+
+padding: 32px 28px;
+
+opacity: 0; transform: translateY(18px);
+
+animation: cardIn 0.75s forwards;
+
+transition: box-shadow 0.4s, transform 0.4s;
+
+}
+
+.card:nth-child(2) { animation-delay: 0.12s; }
+
+.card:nth-child(3) { animation-delay: 0.24s; }
+
+@keyframes cardIn { to { opacity: 1; transform: translateY(0); } }
+
+.card:hover {
+
+transform: translateY(-4px);
+
+box-shadow: 0 30px 60px -24px rgba(58,48,43,0.2);
+
+}
+
+.card-number {
+
+font-family: var(--serif);
+
+font-style: italic; color: var(--rose);
+
+letter-spacing: 2px; font-size: 0.86rem;
+
+margin-bottom: 4px;
+
+}
+
+.card h3 {
+
+font-family: var(--serif);
+
+font-weight: 500; font-size: 1.72rem;
+
+line-height: 1.15; margin-bottom: 14px;
+
+}
+
+.meta {
+
+color: var(--muted); font-size: 0.86rem;
+
+line-height: 1.5; margin-bottom: 6px;
+
+}
+
+.tags {
+
+display: flex; gap: 8px; flex-wrap: wrap;
+
+margin: 16px 0 22px;
+
+}
+
+.tag {
+
+font-size: 0.68rem; letter-spacing: 1.5px;
+
+text-transform: uppercase; color: var(--mauve);
+
+padding: 4px 10px; background: var(--ivory);
+
+border-radius: 99px;
+
+}
+
+.rating {
+
+font-family: var(--serif);
+
+font-size: 1.1rem; margin-bottom: 20px;
+
+}
+
+.maps-link {
+
+display: inline-block; padding: 10px 0;
+
+color: var(--ink); text-decoration: none;
+
+border-bottom: 1px solid var(--ink);
+
+font-family: var(--sans);
+
+font-size: 0.7rem; letter-spacing: 3px;
+
+text-transform: uppercase; font-weight: 500;
+
+transition: all 0.25s;
+
+}
+
+.maps-link:hover {
+
+color: var(--rose); border-color: var(--rose);
+
+letter-spacing: 4px;
+
+}
+
+.leaflet-popup-content-wrapper {
+
+background: white !important; color: var(--ink);
+
+border-radius: 3px;
+
+font-family: var(--sans);
+
+box-shadow: 0 10px 30px rgba(58,48,43,0.15);
+
+}
+
+.leaflet-popup-content b {
+
+font-family: var(--serif);
+
+font-size: 1.2rem; font-weight: 500;
+
+display: block; margin-bottom: 4px;
+
+}
+
+.leaflet-popup-tip { background: white !important; }
+
+</style>
 
 </head>
 
 <body>
 
-<h1 style="color:pink; font-family:sans-serif;">Hello from Date Flow 🌸</h1>
+<div class="container">
 
-<p>If you see this styled, Netlify is rendering HTML correctly.</p>
+<div class="header">
+
+<div class="kicker">a quiet little planner</div>
+
+<h1>Date <em>Planner</em></h1>
+
+<div class="tag-line">Cafés worth lingering in.</div>
+
+<div class="divider"></div>
+
+</div>
+
+ 
+
+<div class="form">
+
+<div class="form-grid">
+
+<div class="field">
+
+<label>Neighbourhood</label>
+
+<select id="area">
+
+<option value="19.0596,72.8295">Bandra West</option>
+
+<option value="18.9220,72.8347">South Bombay</option>
+
+<option value="18.9932,72.8305">Lower Parel</option>
+
+<option value="19.1360,72.8296">Andheri West</option>
+
+<option value="19.1176,72.9060">Powai</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>Budget</label>
+
+<select id="budget">
+
+<option value="1">Everyday</option>
+
+<option value="2" selected>Considered</option>
+
+<option value="3">Elevated</option>
+
+<option value="4">Indulgent</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>Mood</label>
+
+<select id="vibe">
+
+<option value="coffee">Slow coffee</option>
+
+<option value="cafe">Café</option>
+
+<option value="bakery">Bakery</option>
+
+<option value="brunch">Brunch</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>Radius (km)</label>
+
+<input type="number" id="radius" value="3" min="1" max="10">
+
+</div>
+
+</div>
+
+<button class="btn" id="btn">Find cafés</button>
+
+</div>
+
+ 
+
+<div class="loader" id="loader">curating...</div>
+
+<div class="error" id="err"></div>
+
+<div id="map"></div>
+
+<div class="results" id="results">
+
+<div class="results-header">Handpicked for you</div>
+
+<div class="results-sub">Three cafés · in order of grace</div>
+
+<div class="cards" id="cards"></div>
+
+</div>
+
+</div>
+
+ 
+
+<script>
+
+// ============================================================
+
+// Load external resources dynamically (chat-proof URLs)
+
+// ============================================================
+
+var PROTO = 'https:';
+
+ 
+
+function loadCSS(url) {
+
+var link = document.createElement('link');
+
+link.rel = 'stylesheet';
+
+link.href = url;
+
+document.head.appendChild(link);
+
+}
+
+ 
+
+function loadJS(url, callback) {
+
+var script = document.createElement('script');
+
+script.src = url;
+
+script.onload = callback;
+
+document.head.appendChild(script);
+
+}
+
+ 
+
+// Google Fonts
+
+loadCSS(PROTO + '//fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap');
+
+ 
+
+// Leaflet CSS
+
+loadCSS(PROTO + '//unpkg.com/leaflet@1.9.4/dist/leaflet.css');
+
+ 
+
+// Leaflet JS (async — we'll wait for it)
+
+window.leafletReady = false;
+
+loadJS(PROTO + '//unpkg.com/leaflet@1.9.4/dist/leaflet.js', function() {
+
+window.leafletReady = true;
+
+});
+
+ 
+
+// ============================================================
+
+// App logic
+
+// ============================================================
+
+var map = null;
+
+ 
+
+document.getElementById('btn').addEventListener('click', findCafes);
+
+ 
+
+async function findCafes() {
+
+var area = document.getElementById('area').value;
+
+var budget = document.getElementById('budget').value;
+
+var vibe = document.getElementById('vibe').value;
+
+var radiusKm = document.getElementById('radius').value;
+
+var parts = area.split(',');
+
+var lat = parts[0], lng = parts[1];
+
+ 
+
+show('loader'); hide('results'); hide('map'); hide('err');
+
+document.getElementById('btn').disabled = true;
+
+ 
+
+try {
+
+var params = new URLSearchParams({
+
+query: vibe,
+
+ll: lat + ',' + lng,
+
+radius: Math.round(radiusKm * 1000),
+
+max_price: budget,
+
+min_price: 1,
+
+limit: 15,
+
+sort: 'RATING'
+
+});
+
+ 
+
+var res = await fetch('/.netlify/functions/cafes?' + params.toString());
+
+if (!res.ok) {
+
+var errText = await res.text();
+
+throw new Error('Function returned ' + res.status + '. ' + errText.slice(0, 200));
+
+}
+
+var data = await res.json();
+
+if (!data.results || data.results.length === 0) {
+
+throw new Error('No cafés found here. Try a wider radius or different mood.');
+
+}
+
+ 
+
+var cafes = data.results.map(function(p) {
+
+var geoLat = p.latitude || (p.geocodes && p.geocodes.main && p.geocodes.main.latitude);
+
+var geoLng = p.longitude || (p.geocodes && p.geocodes.main && p.geocodes.main.longitude);
+
+return {
+
+name: p.name,
+
+rating: p.rating,
+
+price: p.price,
+
+categories: p.categories || [],
+
+location: p.location || {},
+
+lat: geoLat,
+
+lng: geoLng
+
+};
+
+}).filter(function(p) { return p.lat && p.lng; })
+
+.sort(function(a, b) { return (b.rating || 0) - (a.rating || 0); })
+
+.slice(0, 3);
+
+ 
+
+if (cafes.length === 0) throw new Error('Found cafés but none had mappable coordinates.');
+
+ 
+
+// Wait for Leaflet to be ready
+
+await waitForLeaflet();
+
+ 
+
+renderMap(lat, lng, cafes);
+
+renderCards(cafes);
+
+} catch (err) {
+
+document.getElementById('err').textContent = err.message;
+
+show('err');
+
+} finally {
+
+hide('loader');
+
+document.getElementById('btn').disabled = false;
+
+}
+
+}
+
+ 
+
+function waitForLeaflet() {
+
+return new Promise(function(resolve) {
+
+if (window.leafletReady && window.L) return resolve();
+
+var check = setInterval(function() {
+
+if (window.leafletReady && window.L) {
+
+clearInterval(check);
+
+resolve();
+
+}
+
+}, 100);
+
+// Fail-safe: resolve after 5 sec anyway (map won't render, but cards will)
+
+setTimeout(function() { clearInterval(check); resolve(); }, 5000);
+
+});
+
+}
+
+ 
+
+function show(id) { document.getElementById(id).style.display = 'block'; }
+
+function hide(id) { document.getElementById(id).style.display = 'none'; }
+
+ 
+
+function renderMap(lat, lng, cafes) {
+
+if (!window.L) return;
+
+show('map');
+
+if (map) { map.remove(); map = null; }
+
+ 
+
+map = L.map('map', { scrollWheelZoom: false, zoomControl: true })
+
+.setView([parseFloat(lat), parseFloat(lng)], 14);
+
+ 
+
+var tileUrl = PROTO + '//{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+
+L.tileLayer(tileUrl, {
+
+attribution: '© OpenStreetMap © CARTO',
+
+maxZoom: 19
+
+}).addTo(map);
+
+ 
+
+var colors = ['#D4A5A5', '#D9C5A0', '#B8C5B0'];
+
+var bounds = [];
+
+ 
+
+cafes.forEach(function(c, i) {
+
+var pos = [c.lat, c.lng];
+
+bounds.push(pos);
+
+var iconHtml = '<div style="background:' + colors[i] + ';color:#3A302B;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:500;font-size:0.95rem;font-family:Cormorant Garamond,Georgia,serif;box-shadow:0 4px 14px rgba(58,48,43,0.25);border:2px solid white;">' + (i + 1) + '</div>';
+
+var icon = L.divIcon({
+
+html: iconHtml,
+
+className: '',
+
+iconSize: [32, 32],
+
+iconAnchor: [16, 16]
+
+});
+
+var addr = c.location.formatted_address || '';
+
+var ratingLine = c.rating ? '★ ' + c.rating + '/10' : '';
+
+L.marker(pos, { icon: icon }).addTo(map)
+
+.bindPopup('<b>' + escapeHtml(c.name) + '</b>' + escapeHtml(addr) + '<br>' + ratingLine);
+
+});
+
+ 
+
+if (bounds.length > 1) map.fitBounds(bounds, { padding: [60, 60] });
+
+setTimeout(function() { map.invalidateSize(); }, 150);
+
+}
+
+ 
+
+function renderCards(cafes) {
+
+var container = document.getElementById('cards');
+
+container.innerHTML = '';
+
+var labels = ['One', 'Two', 'Three'];
+
+ 
+
+cafes.forEach(function(c, i) {
+
+var locality = c.location.locality || 'Mumbai';
+
+var mapsUrl = PROTO + '//www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.name + ' ' + locality);
+
+var addr = c.location.formatted_address || '';
+
+var priceStr = c.price ? '₹'.repeat(c.price) : '';
+
+var ratingStr = c.rating ? '★ ' + c.rating + ' / 10' : '';
+
+var cats = (c.categories || []).slice(0, 2).map(function(x) {
+
+return '<span class="tag">' + escapeHtml(x.name) + '</span>';
+
+}).join('');
+
+ 
+
+var card = document.createElement('div');
+
+card.className = 'card';
+
+card.innerHTML =
+
+'<div class="card-number">' + labels[i] + '</div>' +
+
+'<h3>' + escapeHtml(c.name) + '</h3>' +
+
+'<div class="meta">' + escapeHtml(addr) + '</div>' +
+
+(priceStr ? '<div class="meta">' + priceStr + '</div>' : '') +
+
+'<div class="tags">' + cats + '</div>' +
+
+(ratingStr ? '<div class="rating">' + ratingStr + '</div>' : '') +
+
+'<a class="maps-link" href="' + mapsUrl + '" target="_blank">Open in maps →</a>';
+
+container.appendChild(card);
+
+});
+
+ 
+
+show('results');
+
+}
+
+ 
+
+function escapeHtml(str) {
+
+return String(str || '').replace(/[&<>'"]/g, function(s) {
+
+return { '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' }[s];
+
+});
+
+}
+
+</script>
 
 </body>
 
 </html>
+
+ 
+
+Page 1 of 7 Page 1 of 7
